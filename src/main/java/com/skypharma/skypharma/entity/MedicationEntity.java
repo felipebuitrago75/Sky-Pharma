@@ -1,5 +1,8 @@
 package com.skypharma.skypharma.entity;
 
+import com.skypharma.skypharma.exception.DispatchStateException;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +15,8 @@ import javax.persistence.*;
 @Table(name = "MEDICATION")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor // Generates a constructor with all arguments
+@Builder
 public class MedicationEntity {
 
 	/**
@@ -45,4 +50,18 @@ public class MedicationEntity {
 	 */
 	@Column(name = "IMAGE")
 	private byte[] image;
+
+	public void setName(String name) {
+		if (!name.matches("[A-Za-z0-9_-]+")) {
+			throw new DispatchStateException("Invalid name for medication: name (allowed only letters, numbers, ‘-‘, ‘_’)");
+		}
+		this.name = name;
+	}
+
+	public void setCode(String code) {
+		if (!code.matches("[A-Z0-9_]+")) {
+			throw new DispatchStateException("Invalid code for medication: code (allowed only upper case letters, underscore and numbers)");
+		}
+		this.code = code;
+	}
 }

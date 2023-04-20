@@ -1,0 +1,18 @@
+INSERT INTO MEDICATION (NAME, WEIGHT, CODE, IMAGE)
+VALUES ('Medication 1', 100, '12345', null),
+       ('Medication 2', 200, '67890', null),
+       ('Medication 3', 300, 'ABCDE', null),
+       ('Medication 4', 400, 'FGHIJ', null),
+       ('Medication 5', 500, 'KLMNO', null);
+INSERT INTO DRONE (STATE, MODEL, LAST_USED, BATTERY_LEVEL, MAXWEIGHT, SERIAL)
+VALUES ('LOADED', 'HEAVYWEIGHT', CURRENT_TIMESTAMP(), 100, 500, 1),
+       ('LOADED', 'HEAVYWEIGHT', CURRENT_TIMESTAMP(), 90, 500, 2),
+       ('LOADED', 'HEAVYWEIGHT', CURRENT_TIMESTAMP(), 80, 500, 3),
+       ('LOADED', 'MIDDLEWEIGHT', CURRENT_TIMESTAMP(), 70, 500, 4),
+       ('IDLE', 'MIDDLEWEIGHT', CURRENT_TIMESTAMP(), 60, 500, 5);
+INSERT INTO DRONE_MEDICATION (DRONE_ID, MEDICATION_ID, QUANTITY)
+VALUES (1, 1, 5),
+       (1, 2, 10),
+       (2, 2, 15),
+       (3, 3, 20),
+       (4, 4, 25);

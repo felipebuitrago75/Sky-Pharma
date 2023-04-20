@@ -11,10 +11,12 @@ import lombok.Getter;
 @Getter // Lombok annotation to generate getters for all fields
 @AllArgsConstructor // Lombok annotation to generate a constructor with all arguments
 public enum DroneState {
-    AVAILABLE("Available"), // The drone is available for use
-    LOADING("Loading"), // The drone is being loaded with medication
-    EN_ROUTE("En route"), // The drone is en route to deliver medication
-    RETURNING("Returning"); // The drone is returning after delivering medication
+    IDLE("IDLE"),// Drone is available for loading or delivering
+    LOADING("LOADING"),// Drone is currently being loaded with medication items
+        LOADED("LOADED"),// Drone has finished loading and is ready for delivery
+    DELIVERING("DELIVERING"),// Drone is currently delivering medication items
+    DELIVERED("DELIVERED"),// Drone has completed the delivery of medication items
+    RETURNING("RETURNING");// Drone is returning to its base after completing a delivery
 
     private final String description; // A description of the drone state
 
