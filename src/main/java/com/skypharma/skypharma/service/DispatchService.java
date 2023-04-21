@@ -1,9 +1,11 @@
 package com.skypharma.skypharma.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.skypharma.skypharma.dto.DroneDto;
 import com.skypharma.skypharma.dto.MedicationDto;
+import com.skypharma.skypharma.entity.BatteryLowEventLogEntity;
 import com.skypharma.skypharma.entity.DroneEntity;
 import com.skypharma.skypharma.entity.MedicationEntity;
 
@@ -69,4 +71,8 @@ public interface DispatchService {
 	 * @return A list of all drones
 	 */
 	public List<MedicationDto> getAllMedication();
+
+	void createBatteryLowEventLog(DroneEntity drone, int batteryLevel, LocalDateTime now);
+
+	List<BatteryLowEventLogEntity> getAllLogs();
 }

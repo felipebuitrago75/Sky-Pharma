@@ -5,6 +5,7 @@ import java.util.List;
 import com.skypharma.skypharma.dto.DroneDto;
 import com.skypharma.skypharma.dto.DroneMedicationInput;
 import com.skypharma.skypharma.dto.MedicationDto;
+import com.skypharma.skypharma.entity.BatteryLowEventLogEntity;
 import com.skypharma.skypharma.entity.DroneEntity;
 import com.skypharma.skypharma.entity.MedicationEntity;
 import com.skypharma.skypharma.service.DispatchService;
@@ -106,5 +107,19 @@ public class DispatchController {
 	@ResponseBody
 	public List<MedicationDto> getAllMedication(){
 		return dispatchService.getAllMedication();
+	}
+
+	/**
+	 * Retrieves a list of all Medication
+	 *
+	 * @return A list of all Medication
+	 */
+	@GetMapping("/getAllLogs")
+	@ResponseBody
+	public List<BatteryLowEventLogEntity> getAllLogs(){
+		return dispatchService.getAllLogs();
+	}
+
+	public void setDispatchService(DispatchService dispatchService) {
 	}
 }

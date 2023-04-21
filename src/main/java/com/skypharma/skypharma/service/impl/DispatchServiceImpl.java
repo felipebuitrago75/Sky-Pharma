@@ -9,12 +9,14 @@ import javax.persistence.PersistenceContext;
 
 import com.skypharma.skypharma.dto.DroneDto;
 import com.skypharma.skypharma.dto.MedicationDto;
+import com.skypharma.skypharma.entity.BatteryLowEventLogEntity;
 import com.skypharma.skypharma.entity.DroneEntity;
 import com.skypharma.skypharma.entity.DroneMedicationEntity;
 import com.skypharma.skypharma.entity.MedicationEntity;
 import com.skypharma.skypharma.enums.DroneState;
 import com.skypharma.skypharma.exception.DroneNotFoundException;
 import com.skypharma.skypharma.exception.DispatchStateException;
+import com.skypharma.skypharma.repository.BatteryLowEventLogRepository;
 import com.skypharma.skypharma.repository.DroneMedicationRepository;
 import com.skypharma.skypharma.repository.DroneRepository;
 import com.skypharma.skypharma.repository.MedicationRepository;
@@ -31,6 +33,8 @@ public class DispatchServiceImpl implements DispatchService {
 	private DroneMedicationRepository droneMedicationRepository;
 	@Autowired
 	private MedicationRepository medicationRepository;
+	@Autowired
+	private BatteryLowEventLogRepository batteryLowEventLogRepository;
 
 	@Override
 	public void   registerDrone(DroneDto droneDto) {
@@ -85,8 +89,9 @@ public class DispatchServiceImpl implements DispatchService {
 		drone.setState(DroneState.LOADING);
 		drone.setLastUsed(LocalDateTime.now());
 		// Create DroneMedicationEntity objects from the MedicationEntity objects and add them to the drone's list of loaded medications
+		new DroneMedicationEntity();
 		List<DroneMedicationEntity> loadedMedications = medication.stream()
-				.map(med ->new DroneMedicationEntity().builder()
+				.map(med -> DroneMedicationEntity.builder()
 						.drone(drone)
 						.medication(med)
 						.quantity(1)
@@ -184,4 +189,23 @@ public class DispatchServiceImpl implements DispatchService {
 						.build())
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public void createBatteryLowEventLog(DroneEntity drone, int batteryLevel, LocalDateTime now) {
+		// Create a new BatteryLowEventLogEntity
+		BatteryLowEventLogEntity log = BatteryLowEventLogEntity.builder()
+				.drone(drone)
+				.batteryLevel(batteryLevel)
+				.timestamp(now)
+				.build();
+
+		// Save the log to the database
+		batteryLowEventLogRepository.save(log);
+	}
+
+	@Override
+	public List<BatteryLowEventLogEntity> getAllLogs() {
+		return batteryLowEventLogRepository.findAll();
+	}
+
 }

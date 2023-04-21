@@ -48,7 +48,9 @@ To build and run the project, follow these steps:
 3. Run the command `mvn clean install` to build and generate the `.jar` file.
 4. Run the command `java -jar target/sky-pharma-0.0.1-SNAPSHOT.jar` to start the application.
 To test the system, you can use a tool like Postman or Swagger UI to send HTTP requests to the REST API.
-
+5. To view the created endpoints and check their functionality, please go to the following URL to monitor
+both the logs and the database tables.
+   http://localhost:8080/swagger-ui.html
 ## Author
 
 - Felipe Buitrago
